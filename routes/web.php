@@ -162,3 +162,59 @@ Route::group(['middleware'=>['sess']], function(){
 
 
 
+
+/*----------------------------------saler---------------------*/
+
+
+
+route::group(['middleware'=>['salersession']],function()
+{
+	Route::get('/shopkeeper/logout','LogoutController@index')->name('LogoutController.index');
+	
+	Route::get('/shopkeeper/home', 'ShopkeeperController@index')->name('ShopkeeperController.index');
+	Route::get('/shopkeeper/home/fetch', 'ShopkeeperController@fetch')->name('home.fetch');
+	Route::post('/shopkeeper/home', 'ShopkeeperController@show')->name('home.show');
+
+	
+	Route::get('/shopkeeper/deleteyes/{id}','ShopkeeperController@deleteyes');
+	Route::get('/shopkeeper/deleteno/{id}','ShopkeeperController@deleteno');
+
+	Route::get('/shopkeeper/advertisement', 'ShopkeeperController@proadver')->name('ShopkeeperController.proadver');
+	Route::post('/shopkeeper/advertisement', 'ShopkeeperController@proadverpost');
+
+	Route::get('/shopkeeper/availableproduct', 'ShopkeeperController@availpro')->name('ShopkeeperController.availpro');
+
+	Route::get('/shopkeeper/productedit/{id}', 'ShopkeeperController@productedit')->name('ShopkeeperController.productedit');
+	Route::post('/shopkeeper/productedit/{id}', 'ShopkeeperController@productedited');
+
+	Route::get('/shopkeeper/productdelete/{id}', 'ShopkeeperController@productdelete')->name('ShopkeeperController.productdelete');
+	Route::get('/shopkeeper/pressyes/{id}','ShopkeeperController@pressyes');
+	Route::get('/shopkeeper/pressno/{id}','ShopkeeperController@pressno');
+
+	Route::get('/discount', 'ShopkeeperController@discount')->name('ShopkeeperController.discount');
+
+	Route::get('/shopkeeper/pendingreq', 'ShopkeeperController@pendingreq')->name('ShopkeeperController.pendingreq');
+	Route::get('/shopkeeper/productaccept/{id}/{cartid}', 'ShopkeeperController@productaccept')->name('ShopkeeperController.productaccept');
+	Route::get('/shopkeeper/acceptyes/{id}/{cartid}', 'ShopkeeperController@acceptyes')->name('ShopkeeperController.acceptyes');
+
+	Route::get('/shopkeeper/productreject/{id}/{cartid}', 'ShopkeeperController@productreject')->name('ShopkeeperController.productreject');
+	Route::get('/shopkeeper/rejectyes/{id}/{cartid}', 'ShopkeeperController@rejectyes')->name('ShopkeeperController.rejectyes');
+
+	Route::get('/shopkeeper/inventory', 'ShopkeeperController@inventory')->name('ShopkeeperController.inventory');
+	
+	Route::get('/shopkeeper/below', 'ShopkeeperController@below')->name('ShopkeeperController.below');
+	Route::get('/shopkeeper/above', 'ShopkeeperController@above')->name('ShopkeeperController.above');
+	Route::get('/shopkeeper/sidebardiscount', 'ShopkeeperController@sidebardiscount')->name('ShopkeeperController.sidebardiscount');
+	
+	
+	Route::get('/shopkeeper/profile', 'ShopkeeperController@profile')->name('ShopkeeperController.profile');
+	Route::get('/shopkeeper/editprofile', 'ShopkeeperController@editprofile')->name('ShopkeeperController.editprofile');
+	Route::post('/shopkeeper/editprofile', 'ShopkeeperController@editedprofile');
+	
+	Route::get('/shopkeeper/contact', 'ShopkeeperController@contact')->name('ShopkeeperController.contact');
+	
+	Route::get('/shopkeeper/sidebar/{name}', 'ShopkeeperController@sidebar')->name('ShopkeeperController.sidebar');
+	
+});
+
+

@@ -64,6 +64,7 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\UserType::class,
         'loginverify' => \App\Http\Middleware\LoginVerify::class,
 		'RestrictGuestUser' => \App\Http\Middleware\RestrictGuestUser::class,
+		'salersession' =>  \App\Http\Middleware\salersession::class,
 		
     ];
 
