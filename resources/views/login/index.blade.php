@@ -4,6 +4,8 @@
 	<title>Login</title>
 </head>
 <body>
+	@extends('dropdown')
+	@section('dropdown')
 	<br/> <br/><br/><br/>
 	<center>
 	<form  method="post">
@@ -43,5 +45,7 @@
 		
 	</form>
 	</center>
+	@endsection
+	
 </body>
 </html>

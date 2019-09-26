@@ -52,7 +52,8 @@
 			window.jQuery || document.write( "<script src='js/jquery-3.3.1.js'><\/script>" );
 		</script>
 		
-		<link rel="stylesheet" href="/spinner/dpNumberPicker-2.x.css">
+		<!--<link rel="stylesheet" href="/spinner/dpNumberPicker-2.x.css">-->
+		
 		<link rel="stylesheet" href="/spinner/dpNumberPicker-2.x-skin.grey.css">
 		<script src="/spinner/dpNumberPicker-2.x.js"></script>
 		
@@ -60,8 +61,6 @@
 		<link rel="stylesheet" href="/dialoguebox/jquery.dialogbox.css">
 		<script src="/dialoguebox/jquery.dialogBox.js"></script>
 		
-		
-		<script src="/js/homepage.js"></script>
 		
 		
 </head>
