@@ -85,34 +85,37 @@ class CustomerController extends Controller
         $rating=$request->rating;
         $comment=$request->review;
 
+      //error_log('in insertreview');
 
       DB::table('comment_rating')
               ->where('productid','=',$pid)
               ->where('customerid','=',session('user_id'))
               ->delete();
-
+      //error_log("deleted old review");
       //return bool
       $user=DB::table('comment_rating')
               ->insert(
                 ['productid' => $pid,'customerid'=> session('user_id'), 'rating' =>$rating,'comment'=> $comment,'username'=>session('user_name')]
               );
+      
       if($user)
       {
-          //return 'done';
+          //error_log("inserted new reiview");
           $user=DB::table('comment_rating')
             ->select(DB::raw('AVG(rating) as average_rating,productid'))
             ->groupby('productid')
             ->where('productid','=',$pid)
             ->get();
 
+            //error_log("avg rating now:");
+            //error_log($user[0]->average_rating );
             //return number of affected rows
             $done=DB::table('product')
                     ->where('pid',$pid)
                     ->update(['rating' => $user[0]->average_rating]);
+            //error_log($done);
             if($done) return 'done';
             else return 'avarage value not updated';
-
-
       }
       else
       {

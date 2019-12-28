@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 18, 2018 at 12:50 PM
+-- Generation Time: Dec 28, 2019 at 10:13 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -47,12 +47,18 @@ INSERT INTO `cart` (`productid`, `quantity`, `customerid`, `status`, `id`) VALUE
 (11, 6, 10, 'canceled', 41),
 (41, 1, 10, 'canceled', 51),
 (31, 2, 10, 'canceled', 52),
-(39, 4, 10, 'ordered', 53),
+(39, 4, 10, 'accept', 53),
 (26, 4, 10, 'canceled', 54),
 (3, 4, 10, 'canceled', 64),
-(31, 4, 10, 'ordered', 65),
+(31, 4, 10, 'canceled', 65),
 (39, 1, 22, 'incart', 66),
-(31, 1, 22, 'incart', 67);
+(31, 1, 22, 'incart', 67),
+(20, 1, 9, 'incart', 69),
+(20, 1, 10, 'canceled', 70),
+(27, 3, 10, 'ordered', 71),
+(39, 1, 10, 'canceled', 72),
+(31, 1, 10, 'ordered', 73),
+(20, 1, 10, 'incart', 74);
 
 -- --------------------------------------------------------
 
@@ -104,7 +110,7 @@ CREATE TABLE `comment_rating` (
   `productid` int(11) NOT NULL,
   `customerid` int(11) NOT NULL,
   `comment` varchar(500) NOT NULL,
-  `rating` int(11) NOT NULL,
+  `rating` decimal(10,2) DEFAULT NULL,
   `username` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -113,15 +119,17 @@ CREATE TABLE `comment_rating` (
 --
 
 INSERT INTO `comment_rating` (`productid`, `customerid`, `comment`, `rating`, `username`) VALUES
-(1, 2, 'bad', 1, 'jishnu saha'),
-(20, 2, 'osthir', 4, 'jishnu saha'),
-(11, 11, 'not good product', 1, 'noman'),
-(39, 10, 'good', 5, 'jishnu saha'),
-(25, 10, 'good product', 4, 'jishnu saha'),
-(26, 10, 'bad', 1, 'jishnu saha'),
-(1, 10, 'goood', 4, 'jishnu saha'),
-(11, 10, 'good', 4, 'jishnu saha'),
-(31, 10, 'good product', 3, 'jishnu saha');
+(1, 2, 'bad', '1.00', 'jishnu saha'),
+(20, 2, 'osthir', '4.00', 'jishnu saha'),
+(11, 11, 'not good product', '1.00', 'noman'),
+(39, 10, 'good', '5.00', 'jishnu saha'),
+(25, 10, 'good product', '4.00', 'jishnu saha'),
+(26, 10, 'bad', '1.00', 'jishnu saha'),
+(1, 10, 'goood', '4.00', 'jishnu saha'),
+(11, 10, 'good', '4.00', 'jishnu saha'),
+(31, 10, 'good product', '3.00', 'jishnu saha'),
+(6, 10, 'good product. nice', '5.00', 'jishnu saha'),
+(20, 10, 'good', '1.00', 'jishnu saha');
 
 -- --------------------------------------------------------
 
@@ -140,7 +148,7 @@ CREATE TABLE `product` (
   `catagory` varchar(50) NOT NULL,
   `price` int(10) NOT NULL,
   `discount` int(50) NOT NULL,
-  `rating` decimal(10,0) NOT NULL,
+  `rating` decimal(10,2) NOT NULL,
   `photo` varchar(50) NOT NULL,
   `last_insert` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -150,46 +158,46 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`pid`, `name`, `salerid`, `specification`, `gender`, `type`, `quantity`, `catagory`, `price`, `discount`, `rating`, `photo`, `last_insert`) VALUES
-(1, 'nokia 1200 ', 9, 'color: white, size : M', 'male', 'nokia', 11, 'mobile phone', 2000, 5, '3', '1.jpg', '2018-12-01'),
-(2, 'nokia 3110    ', 1, 'Color : blackSize : L', 'common', 'nokia', 35, 'mobile phone', 3000, 0, '0', '2.jpg', '2018-12-01'),
-(3, 'galaxy j5 ', 1, 'Color :white,Size:5 inch', 'common', 'samsung', 40, 'mobile phone', 12000, 0, '0', '3.jpg', '2018-12-01'),
-(4, 'galaxy j7', 1, 'Color :white,Size:5 inch', 'common', 'samsung', 13, 'mobile phone', 15000, 0, '0', '4.jpg', '2018-12-01'),
-(5, 'iphone 6 ', 1, 'Color : blackSize : 5 inch', 'common', 'iphone', 45, 'mobile phone', 50000, 0, '0', '5.jpg', '2018-12-01'),
-(6, 'iphone 7', 1, 'Color : black\r\nSize : 6 inch', 'common', 'iphone', 15, 'mobile phone', 60000, 0, '0', '6.jpg', '2018-12-01'),
-(7, 'HP Pavilion 15P', 1, 'Color : black\r\nSize : 15 inch', 'common', 'hp', 44, 'computer', 70000, 0, '0', '7.jpg', '2018-12-01'),
-(8, 'HP Probook 440', 1, 'Color : black\r\nSize : 16 inch', 'common', 'hp', 10, 'computer', 72000, 10, '0', '8.jpg', '2018-12-01'),
-(9, 'dell inspiron 13', 1, 'Color : black\r\nSize : 16 inch', 'common', 'dell', 60, 'computer', 60000, 0, '0', '9.jpg', '2018-12-01'),
-(10, 'dell inspiron 15', 1, 'Color : black\r\nSize : 15 inch', 'common', 'dell', 40, 'computer', 60000, 0, '0', '10.jpg', '2018-12-01'),
-(11, 'asus zenbook 3', 1, 'Color : black\r\nSize : 14 inch\r\n', 'common', 'asus', 35, 'computer', 60000, 0, '3', '11.jpg', '2018-12-05'),
-(12, 'asus zenbook 13', 1, 'Color : black\r\nSize : 16 inch', 'common', 'asus', 50, 'computer', 45000, 0, '0', '12.jpg', '2018-12-05'),
-(13, 'Sony KDL-40EX650 ', 1, 'Color : blackSize : 12 inch', 'common', 'tv', 20, 'electronics', 20000, 0, '0', '13.jpg', '2018-12-05'),
-(14, 'LG 43LH576T', 1, 'Color : black\r\nSize : 13 inch\r\n', 'common', 'tv', 40, 'electronics', 25000, 0, '0', '14.jpg', '2018-12-05'),
-(15, 'ION 1500 VA IPS', 1, 'Color : black\r\nSize : 6 inch', 'common', 'ips', 40, 'electronics', 20000, 0, '0', '15.jpg', '2018-12-05'),
-(16, 'Singer IPS', 1, 'Color : black\r\nSize : 6 inch', 'common', 'ips', 15, 'electronics', 40000, 15, '0', '16.jpg', '2018-12-05'),
-(17, 'lg 402', 1, 'Color : black,Size : M', 'common', 'refrigerator', 10, 'electronics', 30000, 0, '0', '17.jpg', '2018-12-05'),
-(18, 'Kenmore 50043', 1, 'Color : black,Size : M', 'common', 'refrigerator', 10, 'electronics', 60000, 0, '0', '18.jpg', '2018-12-05'),
-(19, 'Canon EOS', 1, 'Color : black\r\nSize : M', 'common', 'camera', 18, 'entertainments', 30000, 0, '0', '19.jpg', '2018-12-05'),
-(20, 'Nikon D3400', 1, 'Color : black\r\nSize : M', 'common', 'camera', 17, 'entertainments', 20000, 20, '4', '20.jpg', '2018-12-05'),
-(21, 'AmpliVox', 1, 'Color : black\r\nSize : M', 'common', 'sound system', 25, 'entertainments', 20000, 0, '0', '21.jpg', '2018-12-05'),
-(22, 'SVS Ultra Tower Surround', 1, 'Color : black\r\nSize : M', 'common', 'sound system', 10, 'entertainments', 25000, 0, '0', '22.jpg', '2018-12-05'),
-(23, 'Kitchen Toys      ', 1, 'Color : blackSize : M', 'common', 'toys', 28, 'entertainments', 6000, 5, '0', '23.jpg', '2018-12-05'),
-(24, 'Large Minion Soft Toy', 1, 'Color : black\r\nSize : M', 'common', 'toys', 40, 'entertainments', 2000, 0, '0', '24.jpg', '2018-12-05'),
-(25, 'Europe Immigration Service', 1, 'Color : black\r\nSize : M', 'common', 'health care', 25, 'daily needs', 20000, 0, '4', '25.jpg', '2018-12-05'),
-(26, 'Congressman Don Bacon', 1, 'Color : black\r\nSize : M', 'common', 'health care', 25, 'daily needs', 20000, 10, '1', '26.jpg', '2018-12-05'),
-(27, 'Indoor Lighting          ', 1, 'Color : blackSize : L', 'common', 'lighting', 35, 'daily needs', 2000, 35, '0', '27.jpg', '2018-12-05'),
-(28, 'Event Lighting         ', 1, 'Color : blackSize : M', 'common', 'lighting', 29, 'daily needs', 1500, 0, '0', '28.jpg', '2018-12-05'),
-(29, 'Usha Maxx Air   ', 1, 'Color : blackSize : S', 'common', 'fan', 20, 'daily needs', 2000, 0, '0', '29.jpg', '2018-12-05'),
-(30, 'Havells 450', 1, 'Color : black\r\nSize : L', 'common', 'fan', 20, 'daily needs', 3000, 0, '0', '30.jpg', '2018-12-05'),
-(31, 'Temple Necklace', 1, 'Color : black\r\nSize : S', 'female', 'jewellery', 10, 'fashion', 30000, 50, '3', '31.jpg', '2018-12-05'),
-(32, 'Sukkhi Jewellery ', 1, 'Color : blackSize : M', 'female', 'jewellery', 31, 'fashion', 40000, 0, '0', '32.jpg', '2018-12-05'),
-(33, 'Outlet Perfumes', 1, 'Color : black\r\nSize : M', 'male', 'fragrance', 50, 'fashion', 2000, 0, '0', '33.jpg', '2018-12-05'),
-(34, 'Flavor Fragrance', 1, 'Color : black\r\nSize : M', 'male', 'fragrance', 40, 'fashion', 3000, 0, '0', '34.jpg', '2018-12-05'),
-(35, 'Dheiva Polyester', 1, 'Color : black\r\nSize : M', 'male', 'bag', 35, 'fashion', 3000, 0, '0', '35.jpg', '2018-12-05'),
-(36, 'Quilted Camera Bag', 1, 'Color : black\r\nSize : M', 'female', 'bag', 55, 'fashion', 2000, 0, '0', '36.jpg', '2018-12-05'),
-(38, 'bestsellers', 15, 'color :white, size : M', 'female', 'fragrance', 15, 'fashion', 2000, 5, '0', '38.jpg', '2018-12-05'),
-(39, 'manfuni', 15, 'color :white, size : M', 'female', 'bags', 15, 'daily needs', 3000, 40, '5', '39.jpg', '2018-12-05'),
-(40, 'acelure', 15, 'color :white, size : M', 'female', 'bags', 35, 'daily needs', 1600, 10, '0', '40.jpg', '2018-12-05'),
-(41, 'bag pu waterproof', 15, 'Color : blue, Size : M', 'female', 'bags', 5, 'fashion', 4000, 20, '0', '41.jpg', '2018-12-05');
+(1, 'nokia 1200 ', 9, 'color: white, size : M', 'male', 'nokia', 11, 'mobile phone', 2000, 5, '3.00', '1.jpg', '2018-12-01'),
+(2, 'nokia 3110    ', 1, 'Color : blackSize : L', 'common', 'nokia', 35, 'mobile phone', 3000, 0, '0.00', '2.jpg', '2018-12-01'),
+(3, 'galaxy j5 ', 1, 'Color :white,Size:5 inch', 'common', 'samsung', 40, 'mobile phone', 12000, 0, '0.00', '3.jpg', '2018-12-01'),
+(4, 'galaxy j7', 1, 'Color :white,Size:5 inch', 'common', 'samsung', 13, 'mobile phone', 15000, 0, '0.00', '4.jpg', '2018-12-01'),
+(5, 'iphone 6 ', 1, 'Color : blackSize : 5 inch', 'common', 'iphone', 45, 'mobile phone', 50000, 0, '0.00', '5.jpg', '2018-12-01'),
+(6, 'iphone 7', 1, 'Color : black\r\nSize : 6 inch', 'common', 'iphone', 15, 'mobile phone', 60000, 0, '5.00', '6.jpg', '2018-12-01'),
+(7, 'HP Pavilion 15P', 1, 'Color : black\r\nSize : 15 inch', 'common', 'hp', 44, 'computer', 70000, 0, '0.00', '7.jpg', '2018-12-01'),
+(8, 'HP Probook 440', 1, 'Color : black\r\nSize : 16 inch', 'common', 'hp', 10, 'computer', 72000, 10, '0.00', '8.jpg', '2018-12-01'),
+(9, 'dell inspiron 13', 1, 'Color : black\r\nSize : 16 inch', 'common', 'dell', 60, 'computer', 60000, 0, '0.00', '9.jpg', '2018-12-01'),
+(10, 'dell inspiron 15', 1, 'Color : black\r\nSize : 15 inch', 'common', 'dell', 40, 'computer', 60000, 0, '0.00', '10.jpg', '2018-12-01'),
+(11, 'asus zenbook 3', 1, 'Color : black\r\nSize : 14 inch\r\n', 'common', 'asus', 35, 'computer', 60000, 0, '3.00', '11.jpg', '2018-12-05'),
+(12, 'asus zenbook 13', 1, 'Color : black\r\nSize : 16 inch', 'common', 'asus', 50, 'computer', 45000, 0, '0.00', '12.jpg', '2018-12-05'),
+(13, 'Sony KDL-40EX650 ', 1, 'Color : blackSize : 12 inch', 'common', 'tv', 20, 'electronics', 20000, 0, '0.00', '13.jpg', '2018-12-05'),
+(14, 'LG 43LH576T', 1, 'Color : black\r\nSize : 13 inch\r\n', 'common', 'tv', 40, 'electronics', 25000, 0, '0.00', '14.jpg', '2018-12-05'),
+(15, 'ION 1500 VA IPS', 1, 'Color : black\r\nSize : 6 inch', 'common', 'ips', 40, 'electronics', 20000, 0, '0.00', '15.jpg', '2018-12-05'),
+(16, 'Singer IPS', 1, 'Color : black\r\nSize : 6 inch', 'common', 'ips', 15, 'electronics', 40000, 15, '0.00', '16.jpg', '2018-12-05'),
+(17, 'lg 402', 1, 'Color : black,Size : M', 'common', 'refrigerator', 10, 'electronics', 30000, 0, '0.00', '17.jpg', '2018-12-05'),
+(18, 'Kenmore 50043', 1, 'Color : black,Size : M', 'common', 'refrigerator', 10, 'electronics', 60000, 0, '0.00', '18.jpg', '2018-12-05'),
+(19, 'Canon EOS', 1, 'Color : black\r\nSize : M', 'common', 'camera', 18, 'entertainments', 30000, 0, '0.00', '19.jpg', '2018-12-05'),
+(20, 'Nikon D3400', 1, 'Color : black\r\nSize : M', 'common', 'camera', 17, 'entertainments', 20000, 20, '2.50', '20.jpg', '2018-12-05'),
+(21, 'AmpliVox', 1, 'Color : black\r\nSize : M', 'common', 'sound system', 25, 'entertainments', 20000, 0, '0.00', '21.jpg', '2018-12-05'),
+(22, 'SVS Ultra Tower Surround', 1, 'Color : black\r\nSize : M', 'common', 'sound system', 10, 'entertainments', 25000, 0, '0.00', '22.jpg', '2018-12-05'),
+(23, 'Kitchen Toys      ', 1, 'Color : blackSize : M', 'common', 'toys', 28, 'entertainments', 6000, 5, '0.00', '23.jpg', '2018-12-05'),
+(24, 'Large Minion Soft Toy', 1, 'Color : black\r\nSize : M', 'common', 'toys', 40, 'entertainments', 2000, 0, '0.00', '24.jpg', '2018-12-05'),
+(25, 'Europe Immigration Service', 1, 'Color : black\r\nSize : M', 'common', 'health care', 25, 'daily needs', 20000, 0, '4.00', '25.jpg', '2018-12-05'),
+(26, 'Congressman Don Bacon', 1, 'Color : black\r\nSize : M', 'common', 'health care', 25, 'daily needs', 20000, 10, '1.00', '26.jpg', '2018-12-05'),
+(27, 'Indoor Lighting          ', 1, 'Color : blackSize : L', 'common', 'lighting', 35, 'daily needs', 2000, 35, '0.00', '27.jpg', '2018-12-05'),
+(28, 'Event Lighting         ', 1, 'Color : blackSize : M', 'common', 'lighting', 29, 'daily needs', 1500, 0, '0.00', '28.jpg', '2018-12-05'),
+(29, 'Usha Maxx Air   ', 1, 'Color : blackSize : S', 'common', 'fan', 20, 'daily needs', 2000, 0, '0.00', '29.jpg', '2018-12-05'),
+(30, 'Havells 450', 1, 'Color : black\r\nSize : L', 'common', 'fan', 20, 'daily needs', 3000, 0, '0.00', '30.jpg', '2018-12-05'),
+(31, 'Temple Necklace', 1, 'Color : black\r\nSize : S', 'female', 'jewellery', 10, 'fashion', 30000, 50, '3.00', '31.jpg', '2018-12-05'),
+(32, 'Sukkhi Jewellery ', 1, 'Color : blackSize : M', 'female', 'jewellery', 31, 'fashion', 40000, 0, '0.00', '32.jpg', '2018-12-05'),
+(33, 'Outlet Perfumes', 1, 'Color : black\r\nSize : M', 'male', 'fragrance', 50, 'fashion', 2000, 0, '0.00', '33.jpg', '2018-12-05'),
+(34, 'Flavor Fragrance', 1, 'Color : black\r\nSize : M', 'male', 'fragrance', 40, 'fashion', 3000, 0, '0.00', '34.jpg', '2018-12-05'),
+(35, 'Dheiva Polyester', 1, 'Color : black\r\nSize : M', 'male', 'bag', 35, 'fashion', 3000, 0, '0.00', '35.jpg', '2018-12-05'),
+(36, 'Quilted Camera Bag', 1, 'Color : black\r\nSize : M', 'female', 'bag', 55, 'fashion', 2000, 0, '0.00', '36.jpg', '2018-12-05'),
+(38, 'bestsellers', 15, 'color :white, size : M', 'female', 'fragrance', 15, 'fashion', 2000, 5, '0.00', '38.jpg', '2018-12-05'),
+(39, 'manfuni', 15, 'color :white, size : M', 'female', 'bags', 11, 'daily needs', 3000, 40, '5.00', '39.jpg', '2018-12-05'),
+(40, 'acelure', 15, 'color :white, size : M', 'female', 'bags', 35, 'daily needs', 1600, 10, '0.00', '40.jpg', '2018-12-05'),
+(41, 'bag pu waterproof', 15, 'Color : blue, Size : M', 'female', 'bags', 5, 'fashion', 4000, 20, '0.00', '41.jpg', '2018-12-05');
 
 -- --------------------------------------------------------
 
@@ -201,7 +209,7 @@ CREATE TABLE `productinfo` (
 `pid` int(11)
 ,`name` varchar(200)
 ,`salerid` int(11)
-,`rating` decimal(10,0)
+,`rating` decimal(10,2)
 ,`quantity` int(10)
 ,`specification` varchar(500)
 ,`price` int(10)
@@ -370,7 +378,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`uid`, `name`, `email`, `password`, `type`, `contact_number`, `gender`, `address`, `status`) VALUES
-(1, 'Noman saler', 's@s.com', '1111', 'admin', '', 'male', '', 1),
+(1, 'Noman saler', 's@s.com', '1111', 'saler', '', 'male', '', 1),
 (2, 'jishnu saha', 'jishnusaha@yahoo.com', '123', 'customer', '0182', 'female', 'nikunja', 1),
 (3, 'fardin k', 'aa@a.co', 'jis', 'admin', '', 'male', '', 1),
 (4, 'j j ', 'jj@gmail.com', '888', 'admin', '', '', '', 1),
@@ -459,7 +467,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `product`
